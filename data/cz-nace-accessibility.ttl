@@ -1,0 +1,604 @@
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/kg/> .
+
+:cz-nace
+    a dcat:Dataset ;
+    dcterms:identifier "cz-nace" ;
+    dcterms:title "Czech statistical classification of economic activities in the European Community CZ-NACE" .
+
+:cz-nace
+    dqv:hasQualityMeasurement   
+    :cz-naceSparql-endpoint, 
+    :cz-naceSPARQL-endpoint_URL, 
+    :cz-naceAvailability-of-RDF-dump-metadata, 
+    :cz-naceAvailability-of-RDF-dump-query, 
+    :cz-naceURL-for-download-the-dataset, 
+    :cz-naceInactive-links, 
+    :cz-naceUse-HTTPS, 
+    :cz-naceRequires-authentication, 
+    :cz-naceLicense-machine-redeable-metadata, 
+    :cz-naceLicense-machine-redeable-query, 
+    :cz-naceLicense-human-redeable, 
+    :cz-naceMinimum-latency, 
+    :cz-nace25th-percentile-latency, 
+    :cz-naceMedian-latency, 
+    :cz-nace75th-percentile-latency, 
+    :cz-naceMaximum-latency, 
+    :cz-naceAverage-latency, 
+    :cz-naceStandard-deviation-of-latency, 
+    :cz-naceMinimum-throughput, 
+    :cz-nace25th-percentile-throughput, 
+    :cz-naceMedian-throughput, 
+    :cz-nace75th-percentile-throughput, 
+    :cz-naceMaximum-throughput, 
+    :cz-naceAverage-throughput, 
+    :cz-naceStandard-deviation-of-throughput, 
+    :cz-naceDegree-of-connection, 
+    :cz-naceClustering-coefficient, 
+    :cz-naceCentrality, 
+    :cz-naceSKOS-mapping-properties,
+    :cz-naceNumber-of-sameAs-chains, 
+    :cz-naceExternal-links, 
+    :cz-naceScore, 
+    :cz-naceNormalized-score, 
+    :cz-naceURIs-Deferenceability, 
+    :cz-naceAvailability-score, 
+    :cz-naceLicensing-score, 
+    :cz-naceInterlinking-score, 
+    :cz-nacePerformance-score, 
+    :cz-naceSecurity-score, 
+    .
+
+# Quality measurements for the dataset
+:cz-naceSparql-endpoint 
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Sparql-endpoint ;
+    dqv:value "Available"^^xsd:string
+    .
+
+:cz-naceSPARQL-endpoint_URL
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :SPARQL-endpoint_URL ;
+    dqv:value "https://linked.opendata.cz/sparql"^^xsd:string
+    .
+
+:cz-naceAvailability-of-RDF-dump-metadata
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Availability-of-RDF-dump-metadata ;
+    dqv:value "-1"^^xsd:integer
+    .
+
+:cz-naceAvailability-of-RDF-dump-query
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Availability-of-RDF-dump-query ;
+    dqv:value "true"^^xsd:boolean
+    .
+
+:cz-naceURL-for-download-the-dataset
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Availability-of-RDF-dump-query ;
+    dqv:value "14"^^xsd:integer
+    .
+
+:cz-naceInactive-links
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Inactive-links ;
+    dqv:value "true"^^xsd:boolean
+    .
+
+:cz-naceUse-HTTPS
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Use-HTTPS ;
+    dqv:value "false"^^xsd:boolean
+    .
+
+:cz-naceRequires-authentication
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Requires-authentication ;
+    dqv:value "false"^^xsd:boolean
+    .
+
+:cz-naceLicense-machine-redeable-metadata
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :License-machine-redeable-metadata ;
+    dqv:value "Other Open - other-open -"^^xsd:string
+    .
+
+:cz-naceLicense-machine-redeable-query
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :License-machine-redeable-query ;
+    dqv:value "https://creativecommons.org/licenses/by/4.0/"^^xsd:string
+    .
+
+:cz-naceLicense-human-redeable
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :License-human-redeable ;
+    dqv:value "true"^^xsd:boolean
+    .
+
+:cz-naceMinimum-latency
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Minimum-latency ;
+    dqv:value "0.101"^^xsd:float
+    .
+
+:cz-nace25th-percentile-latency
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :25th-percentile-latency ;
+    dqv:value "0.128"^^xsd:float
+    .
+
+:cz-naceMedian-latency
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Median-latency ;
+    dqv:value "0.129"^^xsd:float
+    .
+
+:cz-nace75th-percentile-latency
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :75th-percentile-latency ;
+    dqv:value "0.14"^^xsd:float
+    .
+
+:cz-naceMaximum-latency
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Maximum-latency ;
+    dqv:value "0.143"^^xsd:float
+    .
+
+:cz-naceAverage-latency
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Average-latency ;
+    dqv:value "0.128"^^xsd:float
+    .
+
+:cz-naceStandard-deviation-of-latency
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Standard-deviation-of-latency ;
+    dqv:value "0.015"^^xsd:float
+    .
+
+:cz-naceMinimum-throughput
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Minimum-throughput ;
+    dqv:value "8"^^xsd:integer
+    .
+
+:cz-nace25th-percentile-throughput
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :25th-percentile-throughput ;
+    dqv:value "8"^^xsd:integer
+    .
+
+:cz-naceMedian-throughput
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Median-throughput ;
+    dqv:value "8"^^xsd:integer
+    .
+
+:cz-nace75th-percentile-throughput
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :75th-percentile-throughput ;
+    dqv:value "8.75"^^xsd:float
+    .
+
+:cz-naceMaximum-throughput
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Maximum-throughput ;
+    dqv:value "9"^^xsd:integer
+    .
+
+:cz-naceAverage-throughput
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Average-throughput ;
+    dqv:value "8.3"^^xsd:float
+    .
+
+:cz-naceStandard-deviation-of-throughput
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Standard-deviation-of-throughput ;
+    dqv:value "0.458257569"^^xsd:float
+    .
+
+:cz-naceDegree-of-connection
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Degree-of-connection ;
+    dqv:value "[]"^^xsd:string
+    .
+
+:cz-naceClustering-coefficient
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Clustering-coefficient ;
+    dqv:value "{}"^^xsd:string
+    .
+
+:cz-naceCentrality
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Centrality ;
+    dqv:value "5345991"^^xsd:integer
+    .
+
+:cz-naceNumber-of-sameAs-chains
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Number-of-sameAs-chains ;
+    dqv:value "[]"^^xsd:string
+    .
+
+:cz-naceSKOS-mapping-properties
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :SKOS-mapping-properties ;
+    dqv:value "94"^^xsd:integer
+    .
+
+:cz-naceExternal-links
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :External-links ;
+    dqv:value "None"^^xsd:string
+    .
+
+:cz-naceScore
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Score ;
+    dqv:value "0.58"^^xsd:float
+    .
+
+:cz-naceNormalized-score
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Normalized-score ;
+    dqv:value "50.0"^^xsd:float
+    .
+
+:cz-naceURIs-Deferenceability
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :URIs-Deferenceability ;
+    dqv:value "0.93"^^xsd:float
+    .
+
+:cz-naceAvailability-score
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Availability-score ;
+    dqv:value "0.52"^^xsd:float
+    .
+
+:cz-naceLicensing-score
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Licensing-score ;
+    dqv:value "1.0"^^xsd:float
+    .
+
+:cz-naceInterlinking-score
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Interlinking-score ;
+    dqv:value "1.749E+16"^^xsd:float
+    .
+
+:cz-nacePerformance-score
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Performance-score ;
+    dqv:value "1.0"^^xsd:float
+    .
+
+:cz-naceSecurity-score
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Security-score ;
+    dqv:value "0.5"^^xsd:float
+    .
+
+:availability
+    a dqv:Dimension ;
+    skos:prefLabel "Availability"@en ;
+    skos:definition "Metric related to the availability of the dataset."@en ; 
+    dqv:inCategory :accessibility
+    .
+
+:licensing
+    a dqv:Dimension ;
+    skos:prefLabel "Licensing"@en ;
+    skos:definition "Metric related to the license of the dataset."@en ; 
+    dqv:inCategory :accessibility
+    .
+
+:interlinking
+    a dqv:Dimension ;
+    skos:prefLabel "Interlinking"@en ;
+    skos:definition "Metric related to the degree of connection of the KG"@en ; 
+    dqv:inCategory :accessibility
+    .
+
+:security
+    a dqv:Dimension ;
+    skos:prefLabel "Security"@en ;
+    skos:definition "Metric related to the security of the dataset."@en ; 
+    dqv:inCategory :accessibility
+    .
+
+:performance 
+    a dqv:Dimension ;
+    skos:prefLabel "Performance"@en ;
+    skos:definition "Metrics related to the performance of the dataset."@en ;
+    dqv:inCategory :accessibility
+    .
+
+:security
+    a dqv:Dimension ;
+    skos:prefLabel "Security"@en ;
+    skos:definition "Metrics related to the security of the dataset."@en ;
+    dqv:inCategory :accessibility
+    .
+
+:extra
+    a dqv:Dimension ;
+    skos:prefLabel "Extra"@en ;
+    skos:definition "Metrics related to some extra information about the dataset."@en ;
+    .
+
+:Sparql-endpoint
+    a dqv:Metric ;
+    skos:definition "It checks if the SPARQL endpoint is online."@en ;
+    dqv:expectedDataType xsd:string ;
+    dqv:inDimension :availability
+    .
+
+:Availability-of-RDF-dump-metadata
+    a dqv:Metric ;
+    skos:definition "It checks if the RDF dump in the metadata is online."@en ;
+    dqv:expectedDataType xsd:integer ;
+    dqv:inDimension :availability
+    .
+
+:Availability-of-RDF-dump-query
+    a dqv:Metric ;
+    skos:definition "It checks if the RDF dump in the query is online."@en ;
+    dqv:expectedDataType xsd:boolean ;
+    dqv:inDimension :availability
+    .
+
+:Inactive-links
+    a dqv:Metric ;
+    skos:definition "It checks if in the meatada of the KG there are any inactive links."@en ;
+    dqv:expectedDataType xsd:boolean ;
+    dqv:inDimension :availability
+    .
+
+:URIs-Deferenceability
+    a dqv:Metric ;
+    skos:definition "Measure the URI's Derefereaceability."@en ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :availability
+    .
+
+:License-machine-redeable-metadata
+    a dqv:Metric ;
+    skos:definition "Check the License in the metadata"@en ;
+    dqv:expectedDataType xsd:string ;
+    dqv:inDimension :licensing
+    .
+
+:License-machine-redeable-query
+    a dqv:Metric ;
+    skos:definition "Check the License in the query"@en ;
+    dqv:expectedDataType xsd:string ;
+    dqv:inDimension :licensing
+    .
+
+:License-human-redeable 
+    a dqv:Metric ;
+    dqv:inDimension :licensing ;
+    dqv:expectedDataType xsd:string ;
+    .
+
+:Degree-of-connection
+    a dqv:Metric ;
+    skos:definition "Check the degree of the connection"@en ;
+    dqv:expectedDataType xsd:integer ;
+    dqv:inDimension :interlinking
+    .
+
+:Clustering-coefficient
+    a dqv:Metric ;
+    skos:definition "Check the clustering coefficient"@en ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :interlinking
+    .
+
+:Centrality
+    a dqv:Metric ;
+    skos:definition "Check KG centrality"@en ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :interlinking
+    .
+
+:Number-of-sameAs-chains
+    a dqv:Metric ;
+    skos:definition "Check the number of sameAs chain"@en ;
+    dqv:expectedDataType xsd:integer ;
+    dqv:inDimension :interlinking
+    .
+
+:SKOS-mapping-properties
+    a dqv:Metric ;
+    skos:definition "Check the numbers of skos matching properties"@en ;
+    dqv:expectedDataType xsd:integer ;
+    dqv:inDimension :interlinking
+    .
+
+::Use-HTTPS
+    a dqv:Metric ;
+    skos:definition "Check the use of HTTPS in the SPARQL endpoint"@en ;
+    dqv:expectedDataType xsd:boolean ;
+    dqv:inDimension :security
+    .
+
+:Requires-authentication
+    a dqv:Metric ;
+    skos:definition "Check the if any kind of authentication is required"@en ;
+    dqv:expectedDataType xsd:boolean ;
+    dqv:inDimension :security
+    .
+
+:Minimum-latency 
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Maximum-latency 
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Average-latency 
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Standard-deviation-of-latency 
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Minimum-throughput 
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:integer 
+    .
+
+:Maximum-throughput
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:string 
+    .
+
+:Average-throughput
+    a dqv:Metric ;
+    dqv:inDimension :performance ; 
+    dqv:expectedDataType xsd:float 
+    .
+
+:Standard-deviation-of-throughput
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:25th-percentile-latency
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:75th-percentile-latency 
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Median-latency
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:25th-percentile-throughput 
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:75th-percentile-throughput
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Median-throughput
+    a dqv:Metric ;
+    dqv:inDimension :performance ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Normalized-score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Availability-score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :availability
+    .
+
+:Licensing-score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :licensing
+    .
+
+:Interlinking-score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :interlinking
+    .
+
+:Performance-score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :performance
+    .
+
+:Security-score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :security
+    .

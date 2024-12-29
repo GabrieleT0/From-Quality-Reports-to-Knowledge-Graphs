@@ -170,3 +170,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .*
+data/full_quality_analysis_files/
