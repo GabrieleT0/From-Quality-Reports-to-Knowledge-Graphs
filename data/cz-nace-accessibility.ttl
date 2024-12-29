@@ -50,7 +50,7 @@
     :cz-naceLicensing-score, 
     :cz-naceInterlinking-score, 
     :cz-nacePerformance-score, 
-    :cz-naceSecurity-score, 
+    :cz-naceSecurity-score
     .
 
 # Quality measurements for the dataset
