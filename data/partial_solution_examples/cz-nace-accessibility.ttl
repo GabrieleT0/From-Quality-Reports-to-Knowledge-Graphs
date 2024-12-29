@@ -1,0 +1,164 @@
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/kg/> .
+
+:cz-nace
+    a dcat:Dataset ;
+    dcterms:identifier "cz-nace" ;
+    dcterms:title "Czech statistical classification of economic activities in the European Community CZ-NACE" .
+
+:cz-nace
+    dqv:hasQualityMeasurement   
+    :cz-naceSparql-endpoint, 
+    :cz-naceSPARQL-endpoint_URL, 
+    :cz-naceAvailability-of-RDF-dump-metadata, 
+    :cz-naceAvailability-of-RDF-dump-query, 
+    :cz-naceURIs-Deferenceability, 
+    :cz-naceScore, 
+    :cz-naceNormalized-score, 
+    :cz-naceAvailability-score
+    .
+
+# Quality measurements for the dataset
+:cz-naceSparql-endpoint 
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Sparql-endpoint ;
+    dqv:value "Available"^^xsd:string
+    .
+
+:cz-naceSPARQL-endpoint_URL
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :SPARQL-endpoint_URL ;
+    dqv:value "https://linked.opendata.cz/sparql"^^xsd:string
+    .
+
+:cz-naceAvailability-of-RDF-dump-metadata
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Availability-of-RDF-dump-metadata ;
+    dqv:value "-1"^^xsd:integer
+    .
+
+:cz-naceAvailability-of-RDF-dump-query
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Availability-of-RDF-dump-query ;
+    dqv:value "true"^^xsd:boolean
+    .
+
+:cz-naceURL-for-download-the-dataset
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Availability-of-RDF-dump-query ;
+    dqv:value "14"^^xsd:integer
+    .
+
+:cz-naceInactive-links
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Inactive-links ;
+    dqv:value "true"^^xsd:boolean
+    .
+
+:cz-naceScore
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Score ;
+    dqv:value "0.58"^^xsd:float
+    .
+
+:cz-naceNormalized-score
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Normalized-score ;
+    dqv:value "50.0"^^xsd:float
+    .
+
+:cz-naceURIs-Deferenceability
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :URIs-Deferenceability ;
+    dqv:value "0.93"^^xsd:float
+    .
+
+:cz-naceAvailability-score
+    a dqv:QualityMeasurement ;
+    dqv:computedOn :cz-nace ;
+    dqv:isMeasurementOf :Availability-score ;
+    dqv:value "0.52"^^xsd:float
+    .
+
+:availability
+    a dqv:Dimension ;
+    skos:prefLabel "Availability"@en ;
+    skos:definition "Metric related to the availability of the dataset."@en ; 
+    dqv:inCategory :accessibility
+    .
+
+:extra
+    a dqv:Dimension ;
+    skos:prefLabel "Extra"@en ;
+    skos:definition "Metrics related to some extra information about the dataset."@en ;
+    .
+
+:Sparql-endpoint
+    a dqv:Metric ;
+    skos:definition "It checks if the SPARQL endpoint is online."@en ;
+    dqv:expectedDataType xsd:string ;
+    dqv:inDimension :availability
+    .
+
+:Availability-of-RDF-dump-metadata
+    a dqv:Metric ;
+    skos:definition "It checks if the RDF dump in the metadata is online."@en ;
+    dqv:expectedDataType xsd:integer ;
+    dqv:inDimension :availability
+    .
+
+:Availability-of-RDF-dump-query
+    a dqv:Metric ;
+    skos:definition "It checks if the RDF dump in the query is online."@en ;
+    dqv:expectedDataType xsd:boolean ;
+    dqv:inDimension :availability
+    .
+
+:SPARQL-endpoint_URL
+    a dqv:Metric ;
+    skos:definition "SPARQL endpoint URL"@en ;
+    dqv:expectedDataType xsd:string;
+    dqv:inDimension :extra
+    .
+:Inactive-links
+    a dqv:Metric ;
+    skos:definition "It checks if in the meatada of the KG there are any inactive links."@en ;
+    dqv:expectedDataType xsd:boolean ;
+    dqv:inDimension :availability
+    .
+
+:URIs-Deferenceability
+    a dqv:Metric ;
+    skos:definition "Measure the URI's Derefereaceability."@en ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :availability
+    .
+
+:Score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Normalized-score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float 
+    .
+
+:Availability-score
+    a dqv:Metric ;
+    dqv:expectedDataType xsd:float ;
+    dqv:inDimension :availability
+    .
