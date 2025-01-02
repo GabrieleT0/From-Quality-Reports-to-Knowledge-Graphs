@@ -21,7 +21,7 @@ class PromptLLMS:
         self.kg_example = kg_example
 
     def execute_on_gemini(self):
-        gemini = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key=gemini_key,memory=ConversationBufferMemory())
+        gemini = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key=gemini_key,max_tokens=None, temperature=0)
         chain = self.prompt_template | gemini
 
         if self.kg_example == False:
