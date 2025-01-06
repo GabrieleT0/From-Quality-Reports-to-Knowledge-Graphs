@@ -5,7 +5,7 @@ import os
 
 here = os.path.dirname(os.path.abspath(__file__))
 
-csv_path = os.path.join(here,'../data/full.csv')
+csv_path = os.path.join(here,'../data/quality_data/only_accessibility.csv')
 csv_title = os.path.basename(csv_path)
 ontology_path = os.path.join(here,'../data/dqv.ttl')
 kg_as_example_path = os.path.join(here,'../data/full_examples/cz-nace-accessibility.ttl')
@@ -22,7 +22,6 @@ with open(ontology_path) as f:
 # Read and trasform the ttl KG in a string
 with open(kg_as_example_path) as f:
     kg_as_example = f.read() + '\n'
-
 
 #Zero-shot Code generation
 zero_shot_prompt_code = PromptTemplate(
@@ -119,15 +118,23 @@ one_shot_prompt_full_csv_full_example = PromptTemplate(
     \n  Give me the entire solution, not a pattern to follow and return me only ttl code, don't add more
     '''
 )
+openAI_model = 'gpt-4o-2024-08-06'
+response = ''
+llms = PromptLLMS(one_shot_prompt_full_csv_full_example,csv_title,csv_text,ttl_text,kg_as_example)
+kg_generated_gpt4o = llms.execute_openAI_oneshot_chaining_prompt(kgs_number=10,model_to_use=openAI_model)
+if isinstance(kg_generated_gpt4o,str):
+    response = kg_generated_gpt4o.replace('`','')
+    response = response.replace('ttl','')
+    response = response.replace('turtle','')
+else:
+    for el in kg_generated_gpt4o:
+        response += '\n' +  el
 
-llms = PromptLLMS(zero_shot_prompt_code,csv_title,csv_text,ttl_text)
-kg_generated_gemini = llms.execute_on_gemini()
-kg_generated_gemini = kg_generated_gemini.replace('`','')
 #print(kg_generated_gemini)
 with open(output_file, "w", encoding="utf-8") as file:
-    file.write(kg_generated_gemini)
+    file.write(response)
 
-#parsed_kg_gemini = EvaluateKG(kg_generated_gemini,'Gemini 1.5 pro')
-#parsed_kg_gemini.execute_evaluation(10,5,15)
+parsed_kg_gpt4o = EvaluateKG(response,openAI_model)
+parsed_kg_gpt4o.execute_evaluation(10,5,15)
+print(parsed_kg_gpt4o.stats)
 
-#print(parsed_kg_gemini.stats)
