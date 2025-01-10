@@ -174,3 +174,4 @@ data/full_quality_analysis_files/
 src/output_kg.ttl 
 src/response.txt
 src/test_llm_generated_code.py
+*.txt

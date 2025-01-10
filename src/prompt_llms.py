@@ -7,12 +7,14 @@ from langchain.memory import ConversationBufferMemory
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_google_vertexai import ChatVertexAI
 from langchain.chains import LLMChain
+from langchain_anthropic import ChatAnthropic
 import time
 
 load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
 huggin_face_token = os.getenv('HUGGIN_FACE_TOKEN')
 gemini_key = os.getenv('GOOGLE_AI')
+anthropic_key = os.getenv('Claude')
 
 class PromptLLMS:
     def __init__(self, prompt_template, csv_title, csv_content, ontology_content, kg_example = False):
@@ -176,7 +178,6 @@ class PromptLLMS:
             outputs.append(current_response.content)
             print(f"Iteration {i + 1}")
         
-        print(outputs)
         return outputs
     
     def execute_openAI_oneshot_chaining_prompt(self,kgs_number,model_to_use):
@@ -225,11 +226,9 @@ class PromptLLMS:
 
             print(f"Iteration {i + 1}")
         
-        print(outputs)
-        
         return outputs
 
-    def execute_on_gpt_4(openAI_model):
+    def execute_on_openAI_model(self,openAI_model):
         gpt_4 = ChatOpenAI(model=openAI_model,openai_api_key=openai_api_key,temperature=0.7)
         chain = self.prompt_template | gpt_4
 
@@ -250,3 +249,107 @@ class PromptLLMS:
             result =  chain.invoke({"csv_title": self.csv_title, "csv_content": self.csv_content, "ontology_content" : self.ontology_content, "kg_example" : self.kg_example})
 
         return result
+
+    def execute_on_claude(self):
+        claude = ChatAnthropic(model='claude-3-5-sonnet-20241022',api_key=anthropic_key)
+        chain = self.prompt_template | claude
+
+        if self.kg_example == False:
+            result =  chain.invoke({"csv_title": self.csv_title, "csv_content": self.csv_content, "ontology_content" : self.ontology_content})
+        else:
+            result =  chain.invoke({"csv_title": self.csv_title, "csv_content": self.csv_content, "ontology_content" : self.ontology_content, "kg_example" : self.kg_example})
+
+        return result.content
+
+    def execute_on_claude_prompt_chaining(self,kgs_number):
+        claude = ChatAnthropic(model='claude-3-5-sonnet-20241022',api_key=anthropic_key)
+    
+        refinement_prompt = PromptTemplate(
+            input_variables=["initial_message","kgs_number","csv_file"],
+            template=(
+                "{initial_message}\n{kgs_number}\n{csv_file}"
+            )
+        )
+        chain = refinement_prompt | claude
+
+        initial_message = f"""
+            Consider the following csv entitled {self.csv_title}:\n
+            {self.csv_content}
+            Consider the following ontology in ttl format entitled 'dqv.ttl':\n
+            {self.ontology_content}
+            The CSV pasted before contains the quality data of KGs and for each dimension, the file details its metrics with related measurements.
+            To distinguish metrics and dimension , consider that all the file column names follow the pattern
+            of DIMENSION_METRIC . All the column names ending with -score
+            represent the score attached to the dimension reported as prefix of
+            the column name. Score and normalized score are two columns representing the overall quality score of KG.
+            With this premises, can you model the {self.csv_title} file content according to the dqv.ttl ontology and return the resulting triples in ttl format? 
+            Give me the solution for the first KG in the CSV, not a pattern to follow and return me only ttl code, don't add more.
+        """
+        outputs = []
+
+        for i in range(kgs_number):
+            if i == 0:
+                current_response = chain.invoke({
+                    "initial_message": initial_message,
+                    "kgs_number": '',
+                    "csv_file" : ''
+                })
+            else:
+                current_response = chain.invoke({
+                    "initial_message": previous_answer,
+                    "kgs_number": f'Based on the previously response, do the same also for the KG {i + 1} in the csv file:\n',
+                    "csv_file": self.csv_content
+                })
+            previous_answer = current_response.content
+            outputs.append(current_response.content)
+            print(f"Iteration {i + 1}")
+        
+        return outputs
+    
+    def execute_claude_oneshot_chaining_prompt(self,kgs_number):
+        claude = ChatAnthropic(model='claude-3-5-sonnet-20241022',api_key=anthropic_key)
+
+        refinement_prompt = PromptTemplate(
+            input_variables=["initial_message","kgs_number","csv_file"],
+            template=(
+                "{initial_message}\n{kgs_number}\n{csv_file}"
+            )
+        )
+        chain = refinement_prompt | claude
+
+        initial_message = f"""
+            Consider the following csv entitled {self.csv_title}:\n
+            {self.csv_content}
+            Consider the following ontology in ttl format entitled 'dqv.ttl':\n
+            {self.ontology_content}
+            The CSV pasted before contains the quality data of KGs and for each dimension, the file details its metrics with related measurements.
+            To distinguish metrics and dimension , consider that all the file column names follow the pattern
+            of DIMENSION_METRIC . All the column names ending with -score
+            represent the score attached to the dimension reported as prefix of
+            the column name. Score and normalized score are two columns representing the overall quality score of KG.
+            With this premises, can you model the {self.csv_title} file content according to the dqv.ttl ontology and return the resulting triples in ttl format? 
+            Below I show you a complete example modeled for cz-nace, replicate the solution for the first KG in the CSV file, not a pattern to follow and return me only ttl code, don't add more.\n
+            Example:\n
+            {self.kg_example}
+        """
+        outputs = []
+
+        for i in range(kgs_number):
+            if i == 0:
+                current_response = chain.invoke({
+                    "initial_message": initial_message,
+                    "kgs_number": '',
+                    "csv_file" : ''
+                })
+            else:
+                current_response = chain.invoke({
+                    "initial_message": previous_answer,
+                    "kgs_number": f'Based on the previously response, do the same also for the KG {i + 1} in the csv file:\n',
+                    "csv_file": self.csv_content
+                })
+            previous_answer = current_response.content
+            outputs.append(current_response.content)
+
+            print(f"Iteration {i + 1}")
+        
+        return outputs

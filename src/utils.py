@@ -2,7 +2,7 @@ import os
 
 here = os.path.dirname(os.path.abspath(__file__))
 
-def trasform_file_to_text(csv_path, ontology_path, kg_as_example_path):
+def trasform_file_to_text(csv_path, ontology_path):
     """
     Reads and transforms the contents of a CSV file, an ontology file, and a knowledge graph (KG) example file into text.
 
@@ -25,12 +25,23 @@ def trasform_file_to_text(csv_path, ontology_path, kg_as_example_path):
     with open(ontology_path) as f:
         ttl_text = f.read() + '\n'
 
-    # Read and trasform the ttl KG in a string
+    return csv_text, ttl_text
+
+def convert_example_to_txt(kg_as_example_path):
+    """
+    Reads and converts the contents of a knowledge graph (KG) example file into text.
+
+    Args:
+        kg_as_example_path (str): The file path to the knowledge graph example file in TTL format.
+
+    Returns:
+        str: The content of the knowledge graph example file as a string.
+    """
+    # Read and convert the knowledge graph example file into text
     with open(kg_as_example_path) as f:
         kg_as_example = f.read() + '\n'
 
-
-    return csv_text, ttl_text, kg_as_example
+    return kg_as_example
 
 def convert_response_to_text(lls_response):
     """
