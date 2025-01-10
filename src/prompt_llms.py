@@ -229,8 +229,8 @@ class PromptLLMS:
         
         return outputs
 
-    def execute_on_gpt_4(self):
-        gpt_4 = ChatOpenAI(model="o1-mini-2024-09-12",openai_api_key=openai_api_key,temperature=0.7)
+    def execute_on_gpt_4(openAI_model):
+        gpt_4 = ChatOpenAI(model=openAI_model,openai_api_key=openai_api_key,temperature=0.7)
         chain = self.prompt_template | gpt_4
 
         if self.kg_example == False:
