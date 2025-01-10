@@ -6,7 +6,7 @@ The repository includes code and data to perform the conversion of a CSV file in
 [LangChain](https://python.langchain.com/docs/introduction/) is used to execute the prompt on the LLM. Once the response is obtained, the [RDFLib library](https://rdflib.readthedocs.io/en/stable/) is utilized to parse the RDF graph and evaluate the quality of the generated response.
 
 The approach has been tested on the following models:
-- GPT-o1-mini (2023-09-12)
+- GPT-o1-mini (2024-09-12)
 - GPT-4o (2024-08-06)
 - Gemini 1.5 pro
 - Claude 3.5 Sonnet
