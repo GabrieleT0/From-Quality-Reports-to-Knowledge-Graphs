@@ -33,29 +33,18 @@ To run the code, it is necessary to have **Python version >= 3.13**.
     Claude = ""
     ```
 
-4. Modify the main.py file to select the model on which to execute the prompt. In main.py, the code is designed to run the test on Gemini 1.5 Pro ([see the following section to see how modify the main to execute on different LLMs](#how-modify-the-llms-used-in-the-mainpy-to-execute-the-conversion)):
-
+4. Run the main to perform the conversion and perform the evaluation of the quality of the response. By launching the main without parameters, the test will be run on all the 3 LLMs, use the paramenters to select only some models
     ```sh
-    python3 main.py
+    python3 main.py # run the experiments on all the 3 LLMs tested
+
+    python3 main.py -o # run the experiments on gpt-4o-2024-08-06 (by default is the model selected, you can change it by modifying the openAI_model variable in the main.py script)
+
+    python3 main.py -g # run the experiments on Gemini 1.5 pro
+
+    python3 main.py -c # run the experiments on Claude 3.5 Sonnet
     ```
+
    The LLM’s response is saved in a .txt file named after the prompting method used and the model, e.g., zero_shot_acc_response_gemini.txt.
-
-### How modify the LLMs used in the main.py to execute the conversion 
-The only thing to modify for each executed prompt is the method called on the EvaluateKG object. Below is an example of how to change the zero-shot prompting from Gemini to GPT-4o:
-
-#### Zero-shot prompting on Gemini
-```py
-    llms = PromptLLMS(zero_shot_prompt_only_acc,csv_title,csv_text,ttl_text)
-    # Modify the following line of code
-    gemini_response = llms.execute_on_gemini()
-```
-
-#### Zero-shot prompting on GPT-4o
-```py
-    llms = PromptLLMS(zero_shot_prompt_only_acc,csv_title,csv_text,ttl_text)
-    # Prompting on GPT-4o
-    openai_response = llms.execute_on_gpt_4(openAI_model)
-```
 
 ## Data used as input to the LLMs
 The data used as input to the LLM, along with the natural language message, are located in the [data](./data/) folder. The DQV is in the file [dqv.ttl](./data/dqv.ttl). 
