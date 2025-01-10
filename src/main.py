@@ -2,26 +2,10 @@ from langchain_core.prompts import PromptTemplate
 from prompt_llms import PromptLLMS
 from evaluate_answer import EvaluateKG
 import os
+import utils
 
 here = os.path.dirname(os.path.abspath(__file__))
 
-csv_path = os.path.join(here,'../data/quality_data/only_accessibility.csv')
-csv_title = os.path.basename(csv_path)
-ontology_path = os.path.join(here,'../data/dqv.ttl')
-kg_as_example_path = os.path.join(here,'../data/full_examples/cz-nace-accessibility.ttl')
-output_file = os.path.join(here,'response.txt')
-
-# Read and transform the csv file into text
-with open(csv_path) as f:
-    csv_text = f.read() + '\n'
-
-# Read and trasfromt the ttl ontology into text
-with open(ontology_path) as f:
-    ttl_text = f.read() + '\n'
-
-# Read and trasform the ttl KG in a string
-with open(kg_as_example_path) as f:
-    kg_as_example = f.read() + '\n'
 
 #Zero-shot Code generation
 zero_shot_prompt_code = PromptTemplate(
@@ -118,23 +102,38 @@ one_shot_prompt_full_csv_full_example = PromptTemplate(
     \n  Give me the entire solution, not a pattern to follow and return me only ttl code, don't add more
     '''
 )
-openAI_model = 'gpt-4o-2024-08-06'
-response = ''
-llms = PromptLLMS(one_shot_prompt_full_csv_full_example,csv_title,csv_text,ttl_text,kg_as_example)
-kg_generated_gpt4o = llms.execute_openAI_oneshot_chaining_prompt(kgs_number=10,model_to_use=openAI_model)
-if isinstance(kg_generated_gpt4o,str):
-    response = kg_generated_gpt4o.replace('`','')
-    response = response.replace('ttl','')
-    response = response.replace('turtle','')
-else:
-    for el in kg_generated_gpt4o:
-        response += '\n' +  el
 
-#print(kg_generated_gemini)
-with open(output_file, "w", encoding="utf-8") as file:
-    file.write(response)
+if __name__ == '__main__':
+    
+    # Path to the CSV file to use as input to the LLM
+    csv_path = os.path.join(here,'../data/quality_data/only_accessibility.csv')
+    csv_title = os.path.basename(csv_path)
+    
+    # Path to the ontology file to use as input to the LLM
+    ontology_path = os.path.join(here,'../data/dqv.ttl')
 
-parsed_kg_gpt4o = EvaluateKG(response,openAI_model)
-parsed_kg_gpt4o.execute_evaluation(10,5,15)
-print(parsed_kg_gpt4o.stats)
+    # Path to the KG as example file to use as input to the LLM (only for the one-shot prompting tests)
+    kg_as_example_path = os.path.join(here,'../data/full_examples/cz-nace-accessibility.ttl')
+
+    # Read and transform the contents of the CSV file, the ontology file, and the KG example file into text
+    csv_text, ttl_text, kg_as_example = utils.trasform_file_to_text(csv_path, ontology_path, kg_as_example_path)
+
+    # Useful when use OpenAI API to select the model to use 
+    openAI_model = 'gpt-4o-2024-08-06'
+
+    # Zero-shot prompting only Accessibility 
+    llms = PromptLLMS(zero_shot_prompt_only_acc,csv_title,csv_text,ttl_text)
+    gemini_response = llms.execute_on_gemini()
+
+    # Convert the response to text
+    response = utils.convert_response_to_text(gemini_response)
+
+    # Evaluate the response
+    parsed_kg = EvaluateKG(response,'Gemini 1.5 pro')
+    parsed_kg.execute_evaluation(10,5,15)
+    print(parsed_kg.stats)
+
+    # Save the response as a file
+    utils.save_resonse_as_file('zero_shot_acc_response_gemini',response)
+
 
