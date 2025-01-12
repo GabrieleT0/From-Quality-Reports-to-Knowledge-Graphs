@@ -62,3 +62,6 @@ The [full_examples](./data/full_examples/) directory contains the KG used as exa
  The [partial_solution_examples](./data/partial_solution_examples/) directory contains the KG used as example to the LLM for the **one-shot prompting with partial example** interaction.
  - [cz-nace-accessibility.ttl](./data/partial_solution_examples/cz-nace-accessibility.ttl): is the KG used as example for the *Only Accessibility* use case.
 - [dbpediafr-partial.ttl](./data/partial_solution_examples/dbpediafr-partial.ttl): is the KG used as example for the *All categories** use case.
+
+## Prompt used for the CSV conversion
+In the [run_on_llms.py](./src/run_on_llms.py) file, there are the prompt templates used to task the LLM to execute the CSV conversion. The prompt used for the *prompt chaining* methodology and for the *hybrid prompting* are available in the [prompt_llms.py](./src/prompt_llms.py) file.
